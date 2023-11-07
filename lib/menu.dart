@@ -23,12 +23,13 @@ class HomePage extends StatelessWidget {
           )),
         ),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(
                   top: 10,
                   bottom: 10,
@@ -41,6 +42,17 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+              ),
+              GridView.count(
+                primary: true,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                children: items.map((MenuItem item) {
+                  return MenuItemCard(item);
+                }).toList(),
               ),
             ],
           ),
@@ -59,8 +71,8 @@ class MenuItem {
 }
 
 final List<MenuItem> items = [
-  MenuItem("Lihat Item", Icons.checklist),
-  MenuItem("Tambah Item", Icons.add_shopping_cart),
+  MenuItem("Lihat Item", Icons.book, color: Colors.blueGrey[300]),
+  MenuItem("Tambah Item", Icons.add, color: Colors.cyan[900]),
   MenuItem("Logout", Icons.logout),
 ];
 
@@ -72,13 +84,15 @@ class MenuItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      borderRadius: BorderRadius.circular(10),
       color: item.color ?? Colors.blueGrey[700],
       child: InkWell(
+        borderRadius: BorderRadius.circular(10),
         onTap: () {
           ScaffoldMessenger.of(context)
             ..hideCurrentMaterialBanner()
             ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!")));
+                content: Text("Kamu telah menekan tombol ${item.name}")));
         },
         child: Container(
           padding: const EdgeInsets.all(8),
