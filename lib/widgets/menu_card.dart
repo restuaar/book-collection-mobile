@@ -1,13 +1,6 @@
-import 'package:book_collection_mobile/screens/booklist_form.dart';
 import 'package:flutter/material.dart';
-
-class MenuItem {
-  final String name;
-  final IconData icon;
-  final Color? color;
-
-  MenuItem(this.name, this.icon, {this.color});
-}
+import 'package:book_collection_mobile/models/menu_item_models.dart';
+import 'package:book_collection_mobile/screens/booklist_form.dart';
 
 class MenuItemCard extends StatelessWidget {
   final MenuItem item;

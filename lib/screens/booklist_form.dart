@@ -1,3 +1,5 @@
+import 'package:book_collection_mobile/models/book_models.dart';
+import 'package:book_collection_mobile/screens/booklist.dart';
 import 'package:flutter/material.dart';
 import 'package:book_collection_mobile/widgets/background.dart';
 import 'package:book_collection_mobile/widgets/right_drawer.dart';
@@ -236,7 +238,10 @@ class MySubmitButton extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('Buku berhasil tersimpan'),
+                title: const Text(
+                  'Buku berhasil tersimpan',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 content: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,9 +254,17 @@ class MySubmitButton extends StatelessWidget {
                 ),
                 actions: [
                   TextButton(
-                    child: const Text('OK'),
+                    child: const Text(
+                      'OK',
+                      style: TextStyle(color: Colors.black),
+                    ),
                     onPressed: () {
-                      Navigator.pop(context);
+                      Book book = Book(_name, _amount, _description);
+                      
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: ((context) {
+                        return BookList(book);
+                      })));
                     },
                   ),
                 ],
