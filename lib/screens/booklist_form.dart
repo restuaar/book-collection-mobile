@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:book_collection_mobile/models/book_models.dart';
 import 'package:book_collection_mobile/screens/booklist.dart';
-import 'package:flutter/material.dart';
 import 'package:book_collection_mobile/widgets/background.dart';
 import 'package:book_collection_mobile/widgets/right_drawer.dart';
 
@@ -260,10 +260,11 @@ class MySubmitButton extends StatelessWidget {
                     ),
                     onPressed: () {
                       Book book = Book(_name, _amount, _description);
-                      
-                      Navigator.push(context,
+                      Book.listBook.add(book);
+
+                      Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: ((context) {
-                        return BookList(book);
+                        return const BookList();
                       })));
                     },
                   ),

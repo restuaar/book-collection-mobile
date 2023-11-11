@@ -1,11 +1,11 @@
-import 'package:book_collection_mobile/widgets/background.dart';
 import 'package:flutter/material.dart';
+import 'package:book_collection_mobile/widgets/right_drawer.dart';
+import 'package:book_collection_mobile/widgets/background.dart';
+import 'package:book_collection_mobile/widgets/book_listtile.dart';
 import 'package:book_collection_mobile/models/book_models.dart';
 
 class BookList extends StatelessWidget {
-  BookList(Book book, {super.key}) {
-    Book.listBook.add(book);
-  }
+  const BookList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,23 +36,19 @@ class BookList extends StatelessWidget {
             )),
           ),
         ),
+        endDrawer: const RightDrawer(),
         body: Stack(
           children: [
             const MyBackground(),
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: GridView.count(
-                  primary: true,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  children: Book.listBook.map((Book book) {
-                    return Placeholder();
-                  }).toList(),
-                ),
+            Container(
+              padding: const EdgeInsets.all(4),
+              child: ListView(
+                children: Book.listBook.map((Book book) {
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 5),
+                    child: BookListTile(book),
+                  );
+                }).toList(),
               ),
             ),
           ],
