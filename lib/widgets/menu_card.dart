@@ -1,3 +1,4 @@
+import 'package:book_collection_mobile/screens/booklist_form.dart';
 import 'package:flutter/material.dart';
 
 class MenuItem {
@@ -25,6 +26,11 @@ class MenuItemCard extends StatelessWidget {
             ..hideCurrentMaterialBanner()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}")));
+
+          if (item.name == "Tambah Item") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const BookFormPage()));
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),

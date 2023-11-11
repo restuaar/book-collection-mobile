@@ -1,7 +1,7 @@
-import 'package:book_collection_mobile/widgets/right_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:book_collection_mobile/widgets/menu_card.dart';
 import 'package:book_collection_mobile/widgets/background.dart';
+import 'package:book_collection_mobile/widgets/right_drawer.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

@@ -1,3 +1,4 @@
+import 'package:book_collection_mobile/screens/booklist_form.dart';
 import 'package:book_collection_mobile/screens/menu.dart';
 import 'package:flutter/material.dart';
 
@@ -61,11 +62,13 @@ class RightDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.add),
-            title: const Text('Tambah Produk'),
+            title: const Text('Tambah Buku'),
             // Bagian redirection ke ShopFormPage
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => HomePage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BookFormPage()));
             },
           ),
         ],
