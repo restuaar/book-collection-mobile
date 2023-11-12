@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:book_collection_mobile/widgets/right_drawer.dart';
 import 'package:book_collection_mobile/widgets/background.dart';
 import 'package:book_collection_mobile/widgets/book_listtile.dart';
-import 'package:book_collection_mobile/models/book_models.dart';
+import 'package:book_collection_mobile/models/book_model.dart';
 
 class BookList extends StatelessWidget {
   const BookList({super.key});

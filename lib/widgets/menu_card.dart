@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:book_collection_mobile/screens/booklist.dart';
-import 'package:book_collection_mobile/models/menu_item_models.dart';
+import 'package:book_collection_mobile/models/menu_item_model.dart';
 import 'package:book_collection_mobile/screens/booklist_form.dart';
 
 class MenuItemCard extends StatelessWidget {

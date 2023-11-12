@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:book_collection_mobile/models/book_models.dart';
+import 'package:book_collection_mobile/models/book_model.dart';
 import 'package:book_collection_mobile/screens/booklist.dart';
 import 'package:book_collection_mobile/widgets/background.dart';
 import 'package:book_collection_mobile/widgets/right_drawer.dart';

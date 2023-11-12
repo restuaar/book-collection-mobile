@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:book_collection_mobile/models/book_models.dart';
+import 'package:book_collection_mobile/models/book_model.dart';
 
 class BookListTile extends StatelessWidget {
   final Book book;
