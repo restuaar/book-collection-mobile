@@ -4,201 +4,305 @@
 **NPM** : **2206028951** <br/>
 **Kelas** : **PBP - E**
 
-## Perbedaan _Stateless Widget_ dan _Stateful Widget_ Dalam Flutter
-|       **_Stateless_**    |    **_Stateful_**    |
-|    :-----------:   |    :-----------:     |
-| _Widget_ yang tidak memiliki keadaan yang dapat berubah setelah dibuat. Ini berarti setiap kali ingin mengubah tampilan _widget_, kita harus membuat _widget_ yang baru. Misalnya, menggunakan _StatelessWidget_ untuk menampilkan teks statis atau ikon yang tidak akan berubah. | _Widget_ yang memiliki keadaan yang dapat berubah. Ini memungkinkan untuk memperbarui tampilan _widget_ ketika ada perubahan keadaan. Misalnya, menggunakan _StatefulWidget_ untuk membuat _widget_ yang dapat menanggapi input pengguna. |
-| Didefinisikan dalam metode `build()` yang disediakan oleh _widget_, dan tampilan tersebut tidak dapat berubah selama _widget_ ada. | Terdiri dari dua kelas, yaitu _StatefulWidget_ dan _State_ yang berisi keadaan _widget_. Perubahan keadaan disimpan dalam objek _State_, dan ketika perubahan terjadi, `build()` dijalankan ulang untuk memperbarui tampilan _widget_. |
-Lebih efisien karena tidak memerlukan pembaruan berkelanjutan dan dapat dirender ulang tanpa mempertimbangkan perubahan keadaan. | - |
+## List README Tugas Sebelumnnya
 
-## Widget dan Fungsinya
-|       **_Widget_**    |    **Fungsi**    |
-|    :-----------:   |    :-----------:     |
-| Scaffold | Digunakan untuk membuat kerangka kerja dasar dalam aplikasi |
-| AppBar | Digunakan untuk membuat bilah aplikasi di atas layar dalam aplikasi |
-| Text | Digunakan untuk menampilkan teks dalam antarmuka pengguna |
-| Container | Digunakan untuk mengelilingi dan mengatur tampilan dan dekorasi dari satu atau beberapa _widget_ lain |
-| SingleChildScrollView | Digunakan untuk membuat area gulir yang hanya mengizinkan satu elemen anak secara vertikal |
-| Padding | Digunakan untuk menambahkan jarak atau ruang putih di sekitar _widget_ |
-| Column | Digunakan untuk menyusun widget anak secara vertikal dalam satu kolom |
-| GridView | Digunakan untuk membuat tata letak yang mengatur widget anak dalam bentuk _grid_ (kisi) berdasarkan baris dan kolom. |
-| Material | Widget dasar yang menyediakan material design, yang merupakan pedoman desain antarmuka pengguna yang dikembangkan oleh Google |
-| InkWell | Digunakan untuk menambahkan respons saat disentuh (interaktivitas) ke dalam elemen |
-| Icon | Digunakan untuk menampilkan ikon grafis |
+- [README TUGAS 7](./src/README/README_7.md)
+
+## Perbedaan Antara `Navigator.push()` dan `Navigator.pushReplacement()`
+`Navigator.push()` dan `Navigator.pushReplacement()` adalah dua metode yang digunakan dalam Flutter untuk berpindah antar halaman (routes) dalam aplikasi. Perbedaan utama antara keduanya adalah bagaimana mereka memanipulasi "list" navigasi.
+  1. **`Navigator.push()`** <br/>
+  Metode `Navigator.push()` digunakan untuk menambahkan halaman baru ke "list" navigasi. Dengan kata lain, halaman yang baru akan ditambahkan ke atas halaman yang sudah ada di "list". Ini membuat pengguna dapat kembali ke halaman sebelumnya dengan tombol "Back" pada device ataupun menggunakan metode `Navigator.pop()`.<br/>
+  **Contoh Penggunaan:**  
+      - Navigasi biasa antar halaman: Jika ingin menambahkan halaman baru ke tumpukan dan memungkinkan pengguna untuk kembali ke halaman sebelumnya dengan tombol "Back", `Navigator.push()` cocok digunakan.  
+      -  Formulir atau apliaksi dengan langkah-langkah sekuensial: Misalnya, jika memiliki formulir dengan beberapa langkah, mungkin ingin menambahkan setiap langkah ke tumpukan menggunakan `Navigator.push()`.
+  2. **`Navigator.pushReplacement()`**  
+  Metode `Navigator.pushReplacement()` juga digunakan untuk berpindah ke halaman baru, tetapi dengan menggantikan halaman yang saat ini berada di atas tumpukan navigasi. Dengan kata lain, halaman yang saat ini ditampilkan akan dihapus dari tumpukan dan diganti oleh halaman yang baru.
+  **Contoh Penggunaan:**  
+      - Halaman login: Setelah pengguna berhasil login, mungkin ingin menggantikan halaman login dengan halaman beranda agar pengguna tidak dapat kembali ke halaman login dengan tombol "Back".
+      - Halaman splash screen: Setelah tampilan pembukaan atau splash screen selesai, dapat menggantikannya dengan halaman utama.
+      - Penggantian konten: Jika ingin menggantikan konten satu halaman dengan konten halaman lain
+
+
+## Penjelasan _layout_ Widget pada Flutter
+|    **Widget**    |    **Deskripsi**   |    **Kegunaan**    |
+|   :-----------:  |    :-----------:   |     :-----------:  |
+| Container | Widget dasar yang digunakan untuk mengatur tata letak dan dekorasi dari widget di dalamnya | Digunakan untuk mengelompokkan widget, memberikan padding, margin, dan memetakan ukuran widget di dalamnya |
+| Row | Widget yang mengatur widget-widget didalamnya secara horizontal | Digunakan untuk menyusun widget anak secara berderet horizontal misalnya, untuk membuat baris tombol |
+| Column | Widget yang mengatur widget-widget didalamnya secara vertikal | Digunakan untuk menyusun widget anak secara berderet vertikal misalnya, untuk membuat kolom teks|
+| Stack | Widget yang menumpuk widget-widget didalamnya satu di atas yang lain| Digunakan ketika ingin meletakkan beberapa widget di atas satu sama lain, seperti gambar di atas teks atau membuat antarmuka pengguna yang kompleks |
+| Expanded | Widget yang mengisi sebanyak mungkin ruang yang tersedia dalam widget induknya | Digunakan untuk memberikan ukuran yang dinamis pada widget didalamnya, terutama dalam `Row` atau `Column` |
+| GridView | Widget untuk menampilkan widget-widget didalamnya dalam bentuk grid | Digunakan ketika ingin menampilkan data dalam bentuk grid, seperti galeri gambar atau tata letak aplikasi dengan item yang dapat diatur dalam baris dan kolom |
+| Card | Widget yang memberikan bingkai visual dan bayangan pada widget di dalamnya seperti card | Cocok untuk menampilkan konten atau informasi dalam format yang terstruktur dan menarik, seperti kartu artikel atau kartu pengguna |
+| ListView | Widget yang dapat menampung sejumlah besar widget didalamnya dan memungkinkan pengguna untuk dapat melakukan _scrolling_ | Digunakan ketika memiliki daftar item atau konten yang dapat digulir, seperti daftar pesan atau daftar produk |
+
+## Elemen Input pada Form
+1. **TextFormField untuk Judul Buku**:  
+  Tipe Input: String  
+  Kegunaan: Digunakan untuk mengambil judul buku dari pengguna.  
+  Decoration: Digunakan untuk memberikan petunjuk visual tentang jenis informasi yang diharapkan dan memberikan estetika dengan ikon buku.  
+
+2. **TextFormField untuk Banyak**:  
+  Tipe Input: String (diubah menjadi int)  
+  Kegunaan: Digunakan untuk mengambil jumlah (banyak) buku dari pengguna.  
+  Decoration: Mirip dengan yang lain, memberikan petunjuk visual dan estetika dengan ikon angka.
+
+3. **TextFormField untuk Deskripsi**:  
+  Tipe Input: String  
+  Kegunaan: Digunakan untuk mengambil deskripsi buku dari pengguna.  
+  Decoration: Memberikan petunjuk visual dan estetika dengan ikon pena.
+
+**Mengapa menggunakan elemen input ini**:  
+  TextFormField ini adalah elemen input teks yang serbaguna dan dapat dikustomisasi dengan baik. Kita dapat menetapkan validator untuk memastikan data yang dimasukkan sesuai dengan kebutuhan aplikasi Kita.
+
+
+## Penerapan _clean architecture_ pada Aplikasi Flutter
+_Clean Architecture_ adalah suatu pendekatan arsitektur perangkat lunak yang bertujuan untuk memisahkan konsep-konsep tertentu dalam aplikasi sehingga perubahan pada satu bagian tidak akan berdampak pada bagian lainnya. Arsitektur ini dapat memudahkan pengujian unit serta pemeliharaan kode.
+
+Implementasi Clean Architecture pada aplikasi Flutter melibatkan pembagian komponen-komponen utama ke dalam tiga lapisan utama: Presentasi (UI), Domain (Bisnis/Core), dan Data (Repository dan Sumber Eksternal). Selain itu, Dependency Injection digunakan untuk mengelola dependensi antar-lapisan. Pada tugas kali ini dilakukan _separation of concern_ (SoC) dengan melakukan pemisahan antara widget (komponen yang digunakan), screens (hal yang ditampilkan dalam kesatuan), models (sebagai model untuk komponen).
+
+Penerapan Clean Architecture pada aplikasi Flutter memerlukan perencanaan struktur proyek yang baik, pemisahan tugas antar-lapisan, dan pengelolaan dependensi yang efektif. Dengan menggunakan Clean Architecture, kode akan lebih bersih, modular, dan mudah diujikan. Hal ini memungkinkan fleksibilitas dalam mengganti atau memodifikasi satu lapisan tanpa mempengaruhi lapisan lainnya.
 
 ## Implementasi Tugas
-### Membuat Program Flutter
-  1. Membuka vscode dan menekan tombol `F1` pada _keyboard_ kemudian cari `"Flutter: New Project"` dan tekan Enter.
-  2. Memilih template yang diberikan yaitu Application dan menentukan berkas sebagai tempat dari proyek Flutter.
-  3. Memberikan nama proyek `book_collection_mobile`.
-  4. Menghapus kode pada `main.dart`.
-
-### Membuat 3 Tombol Sederhana dengan Icon dan Teks
-  1. Menambahkan kode pada berkas `main.dart` dengan _Stateless Widget_ yang akan mereturn class HomePage yang dibuat pada berkas `menu.dart`.
-  2. Pada berkas `menu.dart` membuat tampilan untuk kerangka dengan Scaffold yaitu pada appBar dan body sebagai tempat untuk button.
-  3. Menambahkan AppBar dengan kode:
+### Membuat Halaman Formulir Tambah Item.
+  1. Membuat berkas baru yang bernama `booklist_form.dart` yang akan digunakan sebagai halaman formulir untuk menambah item.
+  2. Membuat rangka page dan menambahkan appBar yang sudah digunakan pada page lainnya.
+  3. Membuat elemen input sesuai dengan model yang akan kita buat dengan kode dibawah ini didalam suatu widget Column untuk menyusun kebawah
       ```dart
-        class HomePage extends StatelessWidget {
-        const HomePage({super.key});
+      ...
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          decoration: InputDecoration(
+            hintText: "Judul Buku",
+            labelText: "Judul Buku",
+            prefixIcon: const Icon(
+              Icons.book_rounded,
+              color: Colors.black87,
+            ),
+            fillColor: const Color.fromRGBO(225, 245, 254, 0.4),
+            filled: true,
+            labelStyle: const TextStyle(color: Colors.black87),
+            focusColor: Colors.black87,
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black87),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+          ),
+          onChanged: (String? value) {
+            setState(() {
+              _name = value!;
+            });
+          },
+        ),
+      ),
+      ...
+      ```
+      > Ulang kode tersebut untuk menampilkan input text yang lain seperti Banyak dan Deskripsi
+  4. Membuat validator agar sesuai dengan ketentuan yang diinginkan dengan menambahkan kode didalam class State-nya sebagai tempat menyimpan value.
+      ```dart
+      ...
+      final _formKey = GlobalKey<FormState>();
+      String _name = "";
+      int _amount = 0;
+      String _description = "";
+      ...
+      ```
+  5. Dan menambahkan argumen `validator` pada widget `TextFormField` sebagai validasi input pengguna ketika dilakukan submit dengan menambahkan kode
+      ```dart
+      ...
+      validator: (String? value) {
+        if (value == null || value.isEmpty) {
+          return "Deskripsi tidak boleh kosong!";
+        }
+        return null;
+      },
+      ...
+      ```
+      > Ulang kode tersebut pada setiap input text yang lain seperti Banyak dan Deskripsi sesuai dengan validasinya masing-masing
+  6. Menambahkan tombol untuk menyimpan buku yang sudah dibuat dengan
+      ```dart
+      ...
+      class MySubmitButton extends StatelessWidget {
+        const MySubmitButton({
+          super.key,
+          required GlobalKey<FormState> formKey,
+          required String name,
+          required int amount,
+          required String description,
+        })  : _formKey = formKey,
+              _name = name,
+              _amount = amount,
+              _description = description;
+
+        final GlobalKey<FormState> _formKey;
+        final String _name;
+        final int _amount;
+        final String _description;
 
         @override
         Widget build(BuildContext context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text(
-                "Book Collection",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
-              flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [Color(0xff243748), Color(0xff4b749f)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )),
-              ),
+          return OutlinedButton(
+            style: OutlinedButton.styleFrom(
+                backgroundColor: const Color(0xff4b749f),
+                minimumSize: const Size(160, 50),
+                shape: const StadiumBorder(),
+                side: const BorderSide(width: 3, color: Color(0xff243748))),
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                  ...
+                _formKey.currentState!.reset();
+              }
+            },
+            child: const Text(
+              "SAVE",
+              style: TextStyle(color: Colors.white),
             ),
           );
         }
       }
       ```
-  4. Membuat kelas untuk ItemMenu untuk menyimpan properti yang digunakan dan juga membuat list/array untuk menyimpan ItemMenu yang akan digunakan dengan kode
-      ```dart
-      class MenuItem {
-        final String name;
-        final IconData icon;
-        final Color? color;
 
-        MenuItem(this.name, this.icon, {this.color});
+  7. Dan dengan menambahkan widget MySubmitButton pada Column yang menampung TextInputField juga dan melakukan _passing_ datanya.
+  
+### Mengarahkan Pengguna ke Halaman Formulir pada Halaman Utama
+  1. Membuka berkas `menu_card.dart` yang sudah dilakukan SoC
+  2. Kemudian ditambahkan kode dibawah untuk melakukan navigasi untuk melakukan pemindahan _page_ dengan `Navigator` pada Widget InkWel dan pada argumen onTap:
+      ```dart
+      ...
+      if (item.name == "Tambah Item") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const BookFormPage()));
       }
-
-      final List<MenuItem> items = [
-        MenuItem("Lihat Item", Icons.book, color: Colors.blueGrey[300]),
-        MenuItem("Tambah Item", Icons.add, color: Colors.cyan[900]),
-        MenuItem("Logout", Icons.logout),
-      ];
+      ...
       ```
-  5. Membuat card yang akan menampilkan 3 tombol tersebut dengan kode.
+
+### Memunculkan Data Sesuai Isi dari Formulir
+  1. Membuka berkas `booklist_form.dart` pada class `MyButtonSubmit` dilakukan penambahan kode yaitu pada argumen onPressed pada widget OutlinedButton.
       ```dart
-      class MenuItemCard extends StatelessWidget {
-      final MenuItem item;
-
-      const MenuItemCard(this.item, {super.key});
-
-      @override
-      Widget build(BuildContext context) {
-        return Material(
-          borderRadius: BorderRadius.circular(10),
-          color: item.color ?? Colors.blueGrey[700],
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      item.icon,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 3),
-                      child: Text(
-                        item.name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
+      ...
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text(
+                  'Buku berhasil tersimpan',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Judul: $_name'),
+                      Text('Banyak: $_amount'),
+                      Text('Deskripsi: $_description'),
                     ],
                   ),
                 ),
-              ),
-            ),
-          );
-        }
-      }
-      ```
-  6. Menampilkan item-item yang sudah didefinisikan kedalam body pada Scaffold agar dapat ditampilkan dengan kode
-      ```dart
-      class HomePage extends StatelessWidget {
-      const HomePage({super.key});
-
-      @override
-      Widget build(BuildContext context) {
-        return Scaffold(
-          appBar: ...,
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(
-                      top: 10,
-                      bottom: 10,
+                actions: [
+                  TextButton(
+                    child: const Text(
+                      'OK',
+                      style: TextStyle(color: Colors.black),
                     ),
-                    child: Text(
-                      "Welcome to Book Collection",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    onPressed: () {
+                      ...
+                    },
                   ),
-                  GridView.count(
-                    primary: true,
-                    padding: const EdgeInsets.all(20),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 3,
-                    shrinkWrap: true,
-                    children: items.map((MenuItem item) {
-                      return MenuItemCard(item);
-                      }).toList(),
-                    ),
-                  ],
-                ),
-              ),
+                ],
+              );
+            },
+          );
+          _formKey.currentState!.reset();
+        }
+      },
+      ...
+      ```
+  2. Pada kode tersebut akan dilakukan validasi yang jika berhasil akan menampilkan Pop Up buku yang sudah diisi pada TextInputField
+
+### Membuat Drawer pada Aplikasi
+  1. Membuat berkas baru bernama `right_drawer.dart` yang akan berisi widget drawer yang akan berada disebelah kanan
+  2. Didalam berkas tersebut ditambahkan kode sebagai berikut untuk menampilkan Drawer sesuai dengan keinginan
+      ```dart
+      class RightDrawer extends StatelessWidget {
+        const RightDrawer({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+          return Drawer(
+            child: ListView(
+              children: [
+                ...
+              ],
             ),
           );
         }
       }
       ```
-
-### Memunculkan SnackBar
-  1. Menambahkan kode onTap pada _widget_ InkWel pada MenuItemCard agar setiap tombol dipencet akan menampilkan SnackBar dengan kode
+  3. Menambahkan DrawerHeader untuk agar lebih indah dengan kode pada children ListView
       ```dart
-      class MenuItemCard extends StatelessWidget {
-      final MenuItem item;
-
-      const MenuItemCard(this.item, {super.key});
-
-      @override
-      Widget build(BuildContext context) {
-        return Material(
-          ...,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentMaterialBanner()
-                ..showSnackBar(SnackBar(
-                    content: Text("Kamu telah menekan tombol ${item.name}")));
-            },
-            child: ...,
+      const DrawerHeader(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [Color(0xff243748), Color(0xff4b749f)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.book_rounded,
+              size: 40,
+              color: Colors.white,
             ),
-          );
-        }
-      }  
+            Text(
+              'Book Collection',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            Padding(padding: EdgeInsets.all(10)),
+            Text(
+              "Tempat menyimpan buku untukmu!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+      ),
       ```
+  4. Menambahkan ListTile yang akan mengarahkan pengguna sesuai dengan textnya pada children ListView
+      ```dart
+      ListTile(
+        leading: const Icon(Icons.home_outlined),
+        title: const Text('Halaman Utama'),
+        // Bagian redirection ke MyHomePage
+        onTap: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ));
+        },
+      ),
+      ```
+      > Ulang kode tersebut pada setiap screens yang dibuat agar dapat melakukan navigasi antar screen
 
-### Bonus
-Sudah dikerjakan dengan menambahkan field color dengan tipe Color dan menggunakan Color pada _widget_ Material dengan field color yang ada pada kelas ItemMenu. 
-
+## Bonus
+1. Membuat halaman baru untuk menampilkan daftar item yang sudah dibuat dengan nama berkas `booklist.dart`
+2. Membuat model untuk buku dan sebagai tempat menyimpan list buku yang sudah dibuat sebelumnnya pada berkas `book_model.dart`
+3. Membuat widget custom yang digunakan untuk menampilkan setiap item yang dibuat pada berkas `book_listtile.dart` yang akan digunakan pada `booklist.dart` sebagai list pada children ListView
+4. Menambahkan navigasi yang akan mengarahkan pengguna kehalaman tersebut pada berkas `menu_card.dart` yang akan mengarahkan dari menu, berkas `right_drawer.dart` yang akan mengarahkan dari drawer dan juga pada `booklist_form.dart` dimana setiap kali melakukan save maka akan diarahkan ke halaman tersebut
+5. Ketika pengguna melakukan save akan dibuat Object Book baru sesuai input pengguna pada TextInputField dan dimasukkan kedalam list static pada Object Book. Sehingga pada berkas `booklist.dart` akan dilakukan iterasi dari list static tersebut.
