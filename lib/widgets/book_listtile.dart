@@ -8,7 +8,7 @@ class BookListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 3,
+      elevation: 5,
       borderRadius: const BorderRadius.all(Radius.circular(10)),
       color: Colors.white,
       child: ListTile(
@@ -26,7 +26,7 @@ class BookListTile extends StatelessWidget {
               labelStyle: const TextStyle(color: Colors.white),
             ),
             const SizedBox(
-              height: 8,
+              height: 3,
             ),
             Text(
               book.title,
@@ -35,9 +35,9 @@ class BookListTile extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            Text(book.description),
           ],
         ),
+        subtitle: Text(book.description),
       ),
     );
   }
