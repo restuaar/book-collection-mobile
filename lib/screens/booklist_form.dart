@@ -215,14 +215,14 @@ class _BookFormPageState extends State<BookFormPage> {
                                     "http://127.0.0.1:8000/create-flutter/",
                                     jsonEncode(<String, String>{
                                       'name': _name,
-                                      'price': _amount.toString(),
+                                      'amount': _amount.toString(),
                                       'description': _description,
                                     }));
                                 if (response['status'] == 'success') {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
                                     content:
-                                        Text("Buku baru berhasil disimpan!"),
+                                        Text("Produk baru berhasil disimpan!"),
                                   ));
                                   Navigator.pushReplacement(
                                     context,

@@ -1,36 +1,22 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
+import 'package:book_collection_mobile/screens/login.dart';
 import 'package:book_collection_mobile/screens/menu.dart';
-import 'package:book_collection_mobile/screens/register.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const LoginApp());
-}
-
-class LoginApp extends StatelessWidget {
-  const LoginApp({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginPage(),
-    );
-  }
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController1 = TextEditingController();
+  final TextEditingController _passwordController2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(10),
                     child: const Text(
-                      'Sign in',
+                      'Sign Up',
                       style: TextStyle(fontSize: 20),
                     )),
                 Container(
@@ -93,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: TextField(
                     obscureText: true,
-                    controller: _passwordController,
+                    controller: _passwordController1,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0)),
@@ -106,11 +92,27 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Container(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  child: TextField(
+                    obscureText: true,
+                    controller: _passwordController2,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      labelText: 'Password Confirmation',
+                      prefixIcon: const Icon(
+                        Icons.password,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
                     height: 70,
                     padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: ElevatedButton(
                       child: const Text(
-                        'Login',
+                        'Register',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -118,17 +120,19 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       onPressed: () async {
                         String username = _usernameController.text;
-                        String password = _passwordController.text;
+                        String password1 = _passwordController1.text;
+                        String password2 = _passwordController2.text;
 
                         // Cek kredensial
                         // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                         final response = await request
-                            .login("http://127.0.0.1:8000/auth/login/", {
+                            .post("http://127.0.0.1:8000/auth/register/", {
                           'username': username,
-                          'password': password,
+                          'password1': password1,
+                          'password2': password2,
                         });
 
-                        if (request.loggedIn) {
+                        if (response['status']) {
                           String message = response['message'];
                           String uname = response['username'];
                           Navigator.pushReplacement(
@@ -144,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Login Gagal'),
+                              title: const Text('Register Gagal'),
                               content: Text(response['message']),
                               actions: [
                                 TextButton(
@@ -162,10 +166,10 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Text('Does not have account?'),
+                    const Text('Already have account?'),
                     TextButton(
                       child: Text(
-                        'Sign in',
+                        'Sign Up',
                         style: TextStyle(
                             fontSize: 14, color: Colors.blueGrey[700]),
                       ),
@@ -173,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const RegisterPage()),
+                              builder: (context) => const LoginPage()),
                         );
                       },
                     )
