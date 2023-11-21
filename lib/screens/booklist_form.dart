@@ -1,8 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
+import 'package:book_collection_mobile/screens/menu.dart';
 import 'package:flutter/material.dart';
-import 'package:book_collection_mobile/models/book_model.dart';
-import 'package:book_collection_mobile/screens/booklist.dart';
+// import 'package:book_collection_mobile/models/book_model.dart';
+// import 'package:book_collection_mobile/screens/booklist.dart';
 import 'package:book_collection_mobile/widgets/background.dart';
 import 'package:book_collection_mobile/widgets/right_drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class BookFormPage extends StatefulWidget {
   const BookFormPage({super.key});
@@ -19,12 +26,16 @@ class _BookFormPageState extends State<BookFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: Colors.white,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -188,13 +199,50 @@ class _BookFormPageState extends State<BookFormPage> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: MySubmitButton(
-                            formKey: _formKey,
-                            name: _name,
-                            amount: _amount,
-                            description: _description),
-                      ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                                backgroundColor: const Color(0xff4b749f),
+                                minimumSize: const Size(160, 50),
+                                shape: const StadiumBorder(),
+                                side: const BorderSide(
+                                    width: 3, color: Color(0xff243748))),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                // Kirim ke Django dan tunggu respons
+                                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                                final response = await request.postJson(
+                                    "http://127.0.0.1:8000/create-flutter/",
+                                    jsonEncode(<String, String>{
+                                      'name': _name,
+                                      'price': _amount.toString(),
+                                      'description': _description,
+                                    }));
+                                if (response['status'] == 'success') {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content:
+                                        Text("Buku baru berhasil disimpan!"),
+                                  ));
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomePage()),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                        "Terdapat kesalahan, silakan coba lagi."),
+                                  ));
+                                }
+                              }
+                            },
+                            child: const Text(
+                              "SAVE",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
                     ),
                   ],
                 ),
@@ -202,82 +250,6 @@ class _BookFormPageState extends State<BookFormPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class MySubmitButton extends StatelessWidget {
-  const MySubmitButton({
-    super.key,
-    required GlobalKey<FormState> formKey,
-    required String name,
-    required int amount,
-    required String description,
-  })  : _formKey = formKey,
-        _name = name,
-        _amount = amount,
-        _description = description;
-
-  final GlobalKey<FormState> _formKey;
-  final String _name;
-  final int _amount;
-  final String _description;
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-          backgroundColor: const Color(0xff4b749f),
-          minimumSize: const Size(160, 50),
-          shape: const StadiumBorder(),
-          side: const BorderSide(width: 3, color: Color(0xff243748))),
-      onPressed: () {
-        if (_formKey.currentState!.validate()) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text(
-                  'Buku berhasil tersimpan',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                content: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Judul: $_name'),
-                      Text('Banyak: $_amount'),
-                      Text('Deskripsi: $_description'),
-                    ],
-                  ),
-                ),
-                actions: [
-                  TextButton(
-                    child: const Text(
-                      'OK',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    onPressed: () {
-                      Book book = Book(_name, _amount, _description);
-                      Book.listBook.add(book);
-
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: ((context) {
-                        return const BookList();
-                      })));
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-          _formKey.currentState!.reset();
-        }
-      },
-      child: const Text(
-        "SAVE",
-        style: TextStyle(color: Colors.white),
       ),
     );
   }
