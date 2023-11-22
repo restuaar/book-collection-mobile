@@ -15,7 +15,10 @@ class BookList extends StatelessWidget {
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
+            icon: const Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+            ),
             onPressed: () {
               Navigator.pop(context);
             },

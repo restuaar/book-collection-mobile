@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:book_collection_mobile/models/menu_item_model.dart';
+import 'package:book_collection_mobile/models/menu_item.dart';
 import 'package:book_collection_mobile/widgets/menu_card.dart';
 import 'package:book_collection_mobile/widgets/background.dart';
 import 'package:book_collection_mobile/widgets/right_drawer.dart';
@@ -8,8 +8,8 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final List<MenuItem> items = [
-    MenuItem("Lihat Item", Icons.book, color: Colors.blueGrey[300]),
-    MenuItem("Tambah Item", Icons.add, color: Colors.cyan[900]),
+    MenuItem("Lihat Buku", Icons.book, color: Colors.blueGrey[300]),
+    MenuItem("Tambah Buku", Icons.add, color: Colors.cyan[900]),
     MenuItem("Logout", Icons.logout),
   ];
 
